@@ -13,4 +13,4 @@ PRODUCT_MODELS = {
 }
 
 # Polling interval for cloud updates (seconds)
-UPDATE_INTERVAL = 30
+UPDATE_INTERVAL = 15

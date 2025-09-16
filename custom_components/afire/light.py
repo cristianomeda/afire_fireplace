@@ -34,6 +34,7 @@ COLOR_PRESETS = {
     "Blue 5": ("BLUE_KEY5", (196, 103, 144)),
 }
 
+# Keys that must always be sent as 0 (toggle-style)
 EFFECT_ONLY = {
     "Smooth": "KEY_SMOOTH",
     "Fade 1": "KEY_FADE1",
@@ -107,7 +108,8 @@ class AfireColorLight(CoordinatorEntity, LightEntity):
             _LOGGER.warning("Fireplace %s is OFF — cannot set color/effect", self.did)
             return
 
-        await self.hass.async_add_executor_job(self.api.set_attr, self.did, {"COLOR_SW": 1})
+        # COLOR_SW is toggle style → always 0
+        await self.coordinator.async_set_and_refresh(self.did, {"COLOR_SW": 0})
 
         if "rgb_color" in kwargs:
             rgb = kwargs["rgb_color"]
@@ -118,30 +120,27 @@ class AfireColorLight(CoordinatorEntity, LightEntity):
                               + (COLOR_PRESETS[o][1][2] - rgb[2]) ** 2
             )
             key, color = COLOR_PRESETS[option]
-            await self.hass.async_add_executor_job(self.api.set_attr, self.did, {key: 1})
+            await self.coordinator.async_set_and_refresh(self.did, {key: 1})
             self._current_color = color
             self._current_effect = None
 
         if "effect" in kwargs and kwargs["effect"] in EFFECT_ONLY:
             key = EFFECT_ONLY[kwargs["effect"]]
-            await self.hass.async_add_executor_job(self.api.set_attr, self.did, {key: 1})
+            await self.coordinator.async_set_and_refresh(self.did, {key: 0})
             self._current_effect = kwargs["effect"]
             self._current_color = None
 
-        await self.coordinator.async_request_refresh()
-
     async def async_turn_off(self, **kwargs):
-        await self.hass.async_add_executor_job(self.api.set_attr, self.did, {"COLOR_SW": 0})
+        # COLOR_SW toggle → still 0
+        await self.coordinator.async_set_and_refresh(self.did, {"COLOR_SW": 0})
         self._current_color = None
         self._current_effect = None
-        await self.coordinator.async_request_refresh()
 
     async def async_set_effect(self, effect: str) -> None:
         if not self.is_fireplace_on:
             _LOGGER.warning("Fireplace %s is OFF — cannot set effect", self.did)
             return
         if effect in EFFECT_ONLY:
-            await self.hass.async_add_executor_job(self.api.set_attr, self.did, {EFFECT_ONLY[effect]: 1})
+            await self.coordinator.async_set_and_refresh(self.did, {EFFECT_ONLY[effect]: 0})
             self._current_effect = effect
             self._current_color = None
-            await self.coordinator.async_request_refresh()

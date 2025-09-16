@@ -9,11 +9,15 @@ from .coordinator import AfireCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
+# Keys that behave as toggle-only, always require "0" to activate
+SPECIAL_TOGGLE_KEYS = {"POWERSW", "COLOR_SW", "LED_SW"}
+
 SUPPORTED_SWITCHES = {
     "POWERSW": ("Power", "mdi:fireplace"),
     "COLOR_SW": ("RGB LEDs", "mdi:palette"),
-    "LED_SW": ("Amber LEDs", "mdi:wall-sconce-round-variant")
+    "LED_SW": ("Amber LEDs", "mdi:wall-sconce-round-variant"),
 }
+
 
 async def async_setup_entry(hass, entry, async_add_entities):
     data = hass.data[DOMAIN][entry.entry_id]
@@ -64,12 +68,14 @@ class AfireSwitch(CoordinatorEntity, SwitchEntity):
         return bool(status.get("POWERSW", 0))
 
     async def async_turn_on(self, **kwargs):
-        if self._key != "POWERSW" and not self.is_fireplace_on:
+        if self._key not in SPECIAL_TOGGLE_KEYS and not self.is_fireplace_on:
             _LOGGER.warning("Fireplace %s is OFF — cannot turn on %s", self.did, self._key)
             return
-        await self.hass.async_add_executor_job(self.api.set_attr, self.did, {self._key: 1})
-        await self.coordinator.async_request_refresh()
+
+        value = 0 if self._key in SPECIAL_TOGGLE_KEYS else 1
+        await self.coordinator.async_set_and_refresh(self.did, {self._key: value})
 
     async def async_turn_off(self, **kwargs):
-        await self.hass.async_add_executor_job(self.api.set_attr, self.did, {self._key: 0})
-        await self.coordinator.async_request_refresh()
+        # For toggle keys, OFF is the same as ON (still send 0)
+        value = 0
+        await self.coordinator.async_set_and_refresh(self.did, {self._key: value})

@@ -30,3 +30,8 @@ class AfireCoordinator(DataUpdateCoordinator[dict]):
             return {d["did"]: d for d in devices}
         except Exception as err:
             raise UpdateFailed(f"AFIRE update error: {err}") from err
+
+    async def async_set_and_refresh(self, did: str, attrs: dict) -> None:
+        """Helper: set attribute and immediately refresh coordinator."""
+        await self.hass.async_add_executor_job(self.api.set_attr, did, attrs)
+        await self.async_request_refresh()

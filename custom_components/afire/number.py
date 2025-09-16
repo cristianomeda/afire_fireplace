@@ -86,5 +86,4 @@ class AfireNumber(CoordinatorEntity, NumberEntity):
         if not self.is_fireplace_on:
             _LOGGER.warning("Fireplace %s is OFF — cannot change %s", self.did, self._key)
             return
-        await self.hass.async_add_executor_job(self.api.set_attr, self.did, {self._key: int(value)})
-        await self.coordinator.async_request_refresh()
+        await self.coordinator.async_set_and_refresh(self.did, {self._key: int(value)})
