@@ -1,0 +1,35 @@
+# Python cache and build files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+build/
+dist/
+
+# VS Code settings
+.vscode/
+.history/
+
+# MacOS / Windows noise
+.DS_Store
+Thumbs.db
+
+# Home Assistant files (if you keep dev configs locally)
+home-assistant.log
+home-assistant_v2.db
+*.db-shm
+*.db-wal
+*.db
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Test / debug artifacts
+*.log
+*.bak
+*.swp
+*.tmp
