@@ -1,0 +1,22 @@
+{
+  "title": "Cheminée AFIRE",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connexion à AFIRE",
+        "description": "Entrez les identifiants de votre compte AFIRE",
+        "data": {
+          "username": "Email",
+          "password": "Mot de passe"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Identifiant ou mot de passe invalide",
+      "cannot_connect": "Impossible de se connecter au service AFIRE"
+    },
+    "abort": {
+      "already_configured": "Cette cheminée est déjà configurée"
+    }
+  }
+}

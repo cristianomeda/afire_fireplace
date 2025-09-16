@@ -1,0 +1,22 @@
+{
+  "title": "Chimenea AFIRE",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Conectar a AFIRE",
+        "description": "Introduce las credenciales de tu cuenta AFIRE",
+        "data": {
+          "username": "Correo electrónico",
+          "password": "Contraseña"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Usuario o contraseña no válidos",
+      "cannot_connect": "No se puede conectar al servicio AFIRE"
+    },
+    "abort": {
+      "already_configured": "Esta chimenea ya está configurada"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "title": "AFIRE Kamin",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mit AFIRE verbinden",
+        "description": "Geben Sie die Zugangsdaten Ihres AFIRE-Kontos ein",
+        "data": {
+          "username": "E-Mail",
+          "password": "Passwort"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Ungültiger Benutzername oder Passwort",
+      "cannot_connect": "Verbindung zum AFIRE-Dienst nicht möglich"
+    },
+    "abort": {
+      "already_configured": "Dieser Kamin ist bereits konfiguriert"
+    }
+  }
+}

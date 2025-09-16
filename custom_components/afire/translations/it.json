@@ -1,0 +1,22 @@
+{
+  "title": "Caminetto AFIRE",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connetti ad AFIRE",
+        "description": "Inserisci le credenziali del tuo account AFIRE",
+        "data": {
+          "username": "Email",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Nome utente o password non validi",
+      "cannot_connect": "Impossibile connettersi al servizio AFIRE"
+    },
+    "abort": {
+      "already_configured": "Questo caminetto è già configurato"
+    }
+  }
+}
