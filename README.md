@@ -65,7 +65,7 @@ It is **not affiliated with, endorsed, or supported by AFIRE**.
 
 Here’s an example dashboard layout that mimics the **look and feel of the AFIRE remote control**:  
 
-![AFIRE UI Example](./images/Afire-UI-Card.png)
+![AFIRE Remote Control UI Card](./images/afire_remote_ui_card.png)
 
 This layout uses **Mushroom cards, RGB Light cards, and Buttons**.
 
