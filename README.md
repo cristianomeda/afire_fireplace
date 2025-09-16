@@ -76,8 +76,8 @@ Entity IDs include the unique device ID (`did`) to ensure they don’t conflict 
 | Entity Type | Example Entity ID           | Friendly Name Example         | Description                               |
 |-------------|-----------------------------|-------------------------------|-------------------------------------------|
 | **Switch**  | `switch.afire_<did>_powersw` | Fireplace Power               | Main power on/off for the fireplace       |
-| **Switch**  | `switch.afire_<did>_color_sw` | Fireplace Amber LEDs          | Controls the amber side LED light bars    |
-| **Switch**  | `switch.afire_<did>_led_sw`   | Fireplace RGB LEDs            | Controls the RGB LED light bars           |
+| **Switch**  | `switch.afire_<did>_color_sw` | Fireplace RGB LEDs          | Controls the RGB LED light bars    |
+| **Switch**  | `switch.afire_<did>_led_sw`   | Fireplace Amber LEDs            | Controls the Amber LED light bars           |
 | **Number**  | `number.afire_<did>_flame`   | Fireplace Flame Height        | Adjusts flame height (0–5)                |
 | **Number**  | `number.afire_<did>_speed`   | Fireplace Flame Speed         | Adjusts flame speed (0–5)                 |
 | **Light**   | `light.afire_<did>_color`    | Fireplace Colors              | Controls RGB preset colors and effects    |

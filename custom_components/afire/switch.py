@@ -11,10 +11,9 @@ _LOGGER = logging.getLogger(__name__)
 
 SUPPORTED_SWITCHES = {
     "POWERSW": ("Power", "mdi:fireplace"),
-    "COLOR_SW": ("Amber LEDs", "mdi:wall-sconce-round-variant"),
-    "LED_SW": ("RGB LEDs", "mdi:palette"),
+    "COLOR_SW": ("RGB LEDs", "mdi:palette"),
+    "LED_SW": ("Amber LEDs", "mdi:wall-sconce-round-variant")
 }
-
 
 async def async_setup_entry(hass, entry, async_add_entities):
     data = hass.data[DOMAIN][entry.entry_id]
