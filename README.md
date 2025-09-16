@@ -73,22 +73,22 @@ It is **not affiliated with, endorsed, or supported by AFIRE**.
 Each fireplace exposes the following entities in Home Assistant.  
 Entity IDs include the unique device ID (`did`) to ensure they don’t conflict across multiple fireplaces.
 
-| Entity Type | Example Entity ID | Friendly Name Example | Description |
-|-------------|------------------|------------------------|------|-------------|
-| **Switch**  | `switch.afire_<did>_powersw` | Fireplace Power | Main power on/off for the fireplace |
-| **Switch**  | `switch.afire_<did>_color_sw` | Fireplace Amber LEDs | Controls the amber side LED light bars |
-| **Switch**  | `switch.afire_<did>_led_sw` | Fireplace RGB LEDs | Controls the RGB LED light bars |
-| **Number**  | `number.afire_<did>_flame` | Fireplace Flame Height | Adjusts flame height (0–5) |
-| **Number**  | `number.afire_<did>_speed` | Fireplace Flame Speed | Adjusts flame speed (0–5) |
-| **Light**   | `light.afire_<did>_color` | Fireplace Colors | Controls RGB preset colors and effects |
+| Entity Type | Example Entity ID           | Friendly Name Example         | Description                               |
+|-------------|-----------------------------|-------------------------------|-------------------------------------------|
+| **Switch**  | `switch.afire_<did>_powersw` | Fireplace Power               | Main power on/off for the fireplace       |
+| **Switch**  | `switch.afire_<did>_color_sw` | Fireplace Amber LEDs          | Controls the amber side LED light bars    |
+| **Switch**  | `switch.afire_<did>_led_sw`   | Fireplace RGB LEDs            | Controls the RGB LED light bars           |
+| **Number**  | `number.afire_<did>_flame`   | Fireplace Flame Height        | Adjusts flame height (0–5)                |
+| **Number**  | `number.afire_<did>_speed`   | Fireplace Flame Speed         | Adjusts flame speed (0–5)                 |
+| **Light**   | `light.afire_<did>_color`    | Fireplace Colors              | Controls RGB preset colors and effects    |
 
 ---
 
-## 📸 Example UI
+## 📸 Example Fireplace Remote UI Card
 
 Here’s an example dashboard layout that mimics the **look and feel of the AFIRE remote control**:  
 
-![AFIRE Remote Control UI Card](./images/afire_remote_ui_card.png)
+![AFIRE Fireplace Remote UI Card](./images/afire_remote_ui_card.png)
 
 This layout uses **Mushroom cards, RGB Light cards, and Buttons**.
 
