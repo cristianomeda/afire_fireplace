@@ -1,0 +1,30 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to AFIRE",
+        "description": "Enter your AFIRE account credentials",
+        "data": {
+          "username": "Email",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "auth": "Authentication failed. Check your credentials.",
+      "no_devices": "No fireplaces found for this account."
+    }
+  },
+  "options": {
+    "step": {
+      "reconfigure": {
+        "title": "Reconfigure AFIRE",
+        "description": "Update your AFIRE credentials",
+        "data": {
+          "username": "Email",
+          "password": "Password"
+        }
+      }
+    }
+  }
+}
