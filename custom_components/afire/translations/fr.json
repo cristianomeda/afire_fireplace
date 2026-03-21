@@ -2,7 +2,7 @@
   "config": {
     "step": {
       "user": {
-        "title": "Connexion à AFIRE",
+        "title": "Connexion a AFIRE",
         "description": "Entrez les identifiants de votre compte AFIRE",
         "data": {
           "username": "Email",
@@ -11,11 +11,24 @@
       }
     },
     "error": {
-      "invalid_auth": "Identifiant ou mot de passe invalide",
-      "cannot_connect": "Impossible de se connecter au service AFIRE"
+      "invalid_auth": "Authentification echouee. Verifiez vos identifiants.",
+      "cannot_connect": "Impossible de se connecter au service AFIRE.",
+      "no_devices": "Aucune cheminee trouvee pour ce compte."
     },
     "abort": {
-      "already_configured": "Cette cheminée est déjà configurée"
+      "already_configured": "Ce compte AFIRE est deja configure."
+    }
+  },
+  "options": {
+    "step": {
+      "reconfigure": {
+        "title": "Reconfigurer AFIRE",
+        "description": "Mettez a jour vos identifiants AFIRE",
+        "data": {
+          "username": "Email",
+          "password": "Mot de passe"
+        }
+      }
     }
   }
 }

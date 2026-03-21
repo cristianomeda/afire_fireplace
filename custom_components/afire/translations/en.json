@@ -11,8 +11,12 @@
       }
     },
     "error": {
-      "auth": "Authentication failed. Check your credentials.",
+      "invalid_auth": "Authentication failed. Check your credentials.",
+      "cannot_connect": "Could not connect to the AFIRE service.",
       "no_devices": "No fireplaces found for this account."
+    },
+    "abort": {
+      "already_configured": "This AFIRE account is already configured."
     }
   },
   "options": {

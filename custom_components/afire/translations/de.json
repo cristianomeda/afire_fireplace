@@ -11,11 +11,24 @@
       }
     },
     "error": {
-      "invalid_auth": "Ungültiger Benutzername oder Passwort",
-      "cannot_connect": "Verbindung zum AFIRE-Dienst nicht möglich"
+      "invalid_auth": "Authentifizierung fehlgeschlagen. Bitte pruefen Sie Ihre Zugangsdaten.",
+      "cannot_connect": "Verbindung zum AFIRE-Dienst nicht moeglich.",
+      "no_devices": "Fuer dieses Konto wurden keine Kamine gefunden."
     },
     "abort": {
-      "already_configured": "Dieser Kamin ist bereits konfiguriert"
+      "already_configured": "Dieses AFIRE-Konto ist bereits konfiguriert."
+    }
+  },
+  "options": {
+    "step": {
+      "reconfigure": {
+        "title": "AFIRE neu konfigurieren",
+        "description": "Aktualisieren Sie Ihre AFIRE-Zugangsdaten",
+        "data": {
+          "username": "E-Mail",
+          "password": "Passwort"
+        }
+      }
     }
   }
 }

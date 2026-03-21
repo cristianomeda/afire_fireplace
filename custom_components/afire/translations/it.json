@@ -11,11 +11,24 @@
       }
     },
     "error": {
-      "invalid_auth": "Nome utente o password non validi",
-      "cannot_connect": "Impossibile connettersi al servizio AFIRE"
+      "invalid_auth": "Autenticazione non riuscita. Controlla le credenziali.",
+      "cannot_connect": "Impossibile connettersi al servizio AFIRE.",
+      "no_devices": "Nessun caminetto trovato per questo account."
     },
     "abort": {
-      "already_configured": "Questo caminetto è già configurato"
+      "already_configured": "Questo account AFIRE e gia configurato."
+    }
+  },
+  "options": {
+    "step": {
+      "reconfigure": {
+        "title": "Riconfigura AFIRE",
+        "description": "Aggiorna le credenziali AFIRE",
+        "data": {
+          "username": "Email",
+          "password": "Password"
+        }
+      }
     }
   }
 }

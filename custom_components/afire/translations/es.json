@@ -5,17 +5,30 @@
         "title": "Conectar a AFIRE",
         "description": "Introduce las credenciales de tu cuenta AFIRE",
         "data": {
-          "username": "Correo electrónico",
-          "password": "Contraseña"
+          "username": "Correo electronico",
+          "password": "Contrasena"
         }
       }
     },
     "error": {
-      "invalid_auth": "Usuario o contraseña no válidos",
-      "cannot_connect": "No se puede conectar al servicio AFIRE"
+      "invalid_auth": "La autenticacion ha fallado. Revisa tus credenciales.",
+      "cannot_connect": "No se puede conectar al servicio AFIRE.",
+      "no_devices": "No se han encontrado chimeneas para esta cuenta."
     },
     "abort": {
-      "already_configured": "Esta chimenea ya está configurada"
+      "already_configured": "Esta cuenta de AFIRE ya esta configurada."
+    }
+  },
+  "options": {
+    "step": {
+      "reconfigure": {
+        "title": "Reconfigurar AFIRE",
+        "description": "Actualiza tus credenciales de AFIRE",
+        "data": {
+          "username": "Correo electronico",
+          "password": "Contrasena"
+        }
+      }
     }
   }
 }
