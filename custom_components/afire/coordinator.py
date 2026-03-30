@@ -40,12 +40,34 @@ class AfireCoordinator(DataUpdateCoordinator[dict[str, dict[str, Any]]]):
                 return await self.hass.async_add_executor_job(self.api.get_status, did)
 
             dids = [device["did"] for device in devices]
-            statuses = await asyncio.gather(*(fetch_status(did) for did in dids))
+            statuses = await asyncio.gather(*(fetch_status(did) for did in dids), return_exceptions=True)
 
             results: dict[str, dict[str, Any]] = {}
+            failures: list[tuple[str, Exception]] = []
             for device, attrs in zip(devices, statuses):
+                if isinstance(attrs, Exception):
+                    failures.append((device["did"], attrs))
+                    cached_attrs = None
+                    if self.data and device["did"] in self.data:
+                        cached_attrs = self.data[device["did"]].get("attrs")
+                    elif device.get("attrs"):
+                        cached_attrs = device.get("attrs")
+
+                    if cached_attrs is None:
+                        raise attrs
+
+                    _LOGGER.warning(
+                        "AFIRE refresh failed for %s, keeping last known state: %s",
+                        device["did"],
+                        attrs,
+                    )
+                    attrs = cached_attrs
+
                 device["attrs"] = attrs
                 results[device["did"]] = device
+
+            if failures:
+                _LOGGER.debug("AFIRE refresh completed with %s degraded device(s)", len(failures))
 
             self.api.devices = list(results.values())
             return results
