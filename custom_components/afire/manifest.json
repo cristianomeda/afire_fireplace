@@ -1,7 +1,7 @@
 {
   "domain": "afire",
   "name": "AFIRE Fireplace",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "documentation": "https://github.com/cristianomeda/afire_fireplace",
   "issue_tracker": "https://github.com/cristianomeda/afire_fireplace/issues",
   "requirements": ["requests>=2.31.0"],
