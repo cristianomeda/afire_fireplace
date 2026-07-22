@@ -8,7 +8,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryAuthFailed
 
 from .afire_api import AfireAPI
-from .const import CONF_PASSWORD, CONF_USERNAME, DOMAIN
+from .const import CONF_PASSWORD, CONF_USERNAME, CONF_REGION, DOMAIN
 from .coordinator import AfireCoordinator
 
 PLATFORMS = ["switch", "number", "light"]
@@ -19,8 +19,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up AFIRE from a config entry."""
     username = entry.options.get(CONF_USERNAME, entry.data[CONF_USERNAME])
     password = entry.options.get(CONF_PASSWORD, entry.data[CONF_PASSWORD])
+    region = entry.options.get(CONF_REGION, entry.data[CONF_REGION])
 
-    api = AfireAPI(username, password)
+    api = AfireAPI(username, password, region)
     coordinator = AfireCoordinator(hass, api)
 
     try:
@@ -45,12 +46,23 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     }
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+
+    entry.async_on_unload(entry.add_update_listener(update_listener))
+
     return True
 
+
+async def update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    """Reload integration when config entry options are updated."""
+    await hass.config_entries.async_reload(entry.entry_id)
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload AFIRE config entry."""
     unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
     if unload_ok:
-        hass.data[DOMAIN].pop(entry.entry_id, None)
+        data = hass.data[DOMAIN].pop(entry.entry_id, None)
+        if data:
+            coordinator: AfireCoordinator = data.get("coordinator")
+            if coordinator:
+                await coordinator.async_shutdown()
     return unload_ok

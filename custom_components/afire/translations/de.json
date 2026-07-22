@@ -6,7 +6,8 @@
         "description": "Geben Sie die Zugangsdaten Ihres AFIRE-Kontos ein",
         "data": {
           "username": "E-Mail",
-          "password": "Passwort"
+          "password": "Passwort",
+          "region": "API-Region"
         }
       }
     },
@@ -26,8 +27,17 @@
         "description": "Aktualisieren Sie Ihre AFIRE-Zugangsdaten",
         "data": {
           "username": "E-Mail",
-          "password": "Passwort"
+          "password": "Passwort",
+          "region": "API-Region"
         }
+      }
+    }
+  },
+  "selector": {
+    "region": {
+      "options": {
+        "default": "Standard",
+        "eu": "Europa"
       }
     }
   }

@@ -6,7 +6,8 @@
         "description": "Enter your AFIRE account credentials",
         "data": {
           "username": "Email",
-          "password": "Password"
+          "password": "Password",
+          "region": "API region"
         }
       }
     },
@@ -26,8 +27,17 @@
         "description": "Update your AFIRE credentials",
         "data": {
           "username": "Email",
-          "password": "Password"
+          "password": "Password",
+          "region": "API region"
         }
+      }
+    }
+  },
+  "selector": {
+    "region": {
+      "options": {
+        "default": "Default",
+        "eu": "Europe"
       }
     }
   }

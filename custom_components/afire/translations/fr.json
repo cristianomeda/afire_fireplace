@@ -6,7 +6,8 @@
         "description": "Entrez les identifiants de votre compte AFIRE",
         "data": {
           "username": "Email",
-          "password": "Mot de passe"
+          "password": "Mot de passe",
+          "region": "Région API"
         }
       }
     },
@@ -26,8 +27,17 @@
         "description": "Mettez a jour vos identifiants AFIRE",
         "data": {
           "username": "Email",
-          "password": "Mot de passe"
+          "password": "Mot de passe",
+          "region": "Région API"
         }
+      }
+    }
+  },
+  "selector": {
+    "region": {
+      "options": {
+        "default": "Par défaut",
+        "eu": "Europe"
       }
     }
   }

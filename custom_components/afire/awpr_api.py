@@ -14,10 +14,12 @@ from .const import (
     DEFAULT_APPID,
     MODEL_ADVANCED,
     SERIES_AWPR,
+    REGION_EU,
+    API_BASE_EU,
+    API_BASE_DEFAULT,
 )
 
 _LOGGER = logging.getLogger(__name__)
-API_BASE = "https://api.gizwits.com/app"
 REQUEST_TIMEOUT = 15
 TRANSIENT_RETRY_DELAY = 1
 STATUS_FAILURE_BACKOFF_BASE = 30
@@ -35,7 +37,11 @@ class AwprBackend:
 
     series = SERIES_AWPR
 
-    def __init__(self, username: str, password: str, appid: str = DEFAULT_APPID) -> None:
+    def __init__(self, username: str, password: str, region: str, appid: str = DEFAULT_APPID) -> None:
+        if region == REGION_EU:
+            self.api_base = API_BASE_EU
+        else:
+            self.api_base = API_BASE_DEFAULT
         self.username = username
         self.password = password
         self.appid = appid
@@ -48,7 +54,7 @@ class AwprBackend:
         self._status_failures: dict[str, int] = {}
 
     def login(self) -> None:
-        url = f"{API_BASE}/login"
+        url = f"{self.api_base}/login"
         headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",
@@ -160,13 +166,14 @@ class AwprBackend:
             "X-Gizwits-Application-Id": self.appid,
             "X-Gizwits-User-token": self.token,
         }
+
         if json_request:
             headers["Content-Type"] = "application/json"
 
         try:
             response = self.session.request(
                 method,
-                f"{API_BASE}{path}",
+                f"{self.api_base}{path}",
                 headers=headers,
                 json=json,
                 timeout=REQUEST_TIMEOUT,

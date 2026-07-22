@@ -6,7 +6,8 @@
         "description": "Introduce las credenciales de tu cuenta AFIRE",
         "data": {
           "username": "Correo electronico",
-          "password": "Contrasena"
+          "password": "Contrasena",
+          "region": "Región de la API"
         }
       }
     },
@@ -26,8 +27,17 @@
         "description": "Actualiza tus credenciales de AFIRE",
         "data": {
           "username": "Correo electronico",
-          "password": "Contrasena"
+          "password": "Contrasena",
+          "region": "Región de la API"
         }
+      }
+    }
+  },
+  "selector": {
+    "region": {
+      "options": {
+        "default": "Por defecto",
+        "eu": "Europa"
       }
     }
   }
