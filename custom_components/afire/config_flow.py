@@ -7,12 +7,12 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
 import homeassistant.helpers.config_validation as cv
+from homeassistant.helpers.selector import SelectSelector, SelectSelectorConfig, SelectSelectorMode
 
 from .afire_api import AfireAPI
-from .const import CONF_PASSWORD, CONF_USERNAME, DOMAIN
+from .const import CONF_PASSWORD, CONF_USERNAME, CONF_REGION, REGION_DEFAULT, REGION_EU, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
-
 
 class InvalidAuth(Exception):
     """Error to indicate there is invalid auth."""
@@ -22,8 +22,8 @@ class CannotConnect(Exception):
     """Error to indicate we cannot connect."""
 
 
-async def _validate_credentials(hass, username: str, password: str) -> list[dict]:
-    api = AfireAPI(username, password)
+async def _validate_credentials(hass, username: str, password: str, region: str) -> list[dict]:
+    api = AfireAPI(username, password, region)
     try:
         await hass.async_add_executor_job(api.login)
         return await hass.async_add_executor_job(api.get_devices)
@@ -49,9 +49,10 @@ class AfireConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input:
             username = user_input[CONF_USERNAME]
             password = user_input[CONF_PASSWORD]
+            region = user_input[CONF_REGION]
 
             try:
-                devices = await _validate_credentials(self.hass, username, password)
+                devices = await _validate_credentials(self.hass, username, password, region)
             except InvalidAuth:
                 errors["base"] = "invalid_auth"
             except CannotConnect:
@@ -67,13 +68,20 @@ class AfireConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     self._abort_if_unique_id_configured()
                     return self.async_create_entry(
                         title="AFIRE Fireplace",
-                        data={CONF_USERNAME: username, CONF_PASSWORD: password},
+                        data={CONF_USERNAME: username, CONF_PASSWORD: password, CONF_REGION: region},
                     )
 
         schema = vol.Schema(
             {
                 vol.Required(CONF_USERNAME): cv.string,
                 vol.Required(CONF_PASSWORD): cv.string,
+                vol.Required(CONF_REGION, default=REGION_DEFAULT): SelectSelector(
+                    SelectSelectorConfig(
+                        options=[REGION_DEFAULT, REGION_EU],
+                        mode=SelectSelectorMode.DROPDOWN,
+                        translation_key="region"
+                    )
+                ),
             }
         )
         return self.async_show_form(step_id="user", data_schema=schema, errors=errors)
@@ -96,8 +104,9 @@ class AfireOptionsFlow(config_entries.OptionsFlow):
         if user_input:
             username = user_input[CONF_USERNAME]
             password = user_input[CONF_PASSWORD]
+            region = user_input[CONF_REGION]
             try:
-                devices = await _validate_credentials(self.hass, username, password)
+                devices = await _validate_credentials(self.hass, username, password, region)
             except InvalidAuth:
                 errors["base"] = "invalid_auth"
             except CannotConnect:
@@ -109,7 +118,10 @@ class AfireOptionsFlow(config_entries.OptionsFlow):
                 if not devices:
                     errors["base"] = "no_devices"
                 else:
-                    return self.async_create_entry(title="", data=user_input)
+                    return self.async_create_entry(
+                        title="AFIRE Fireplace",
+                        data={CONF_USERNAME: username, CONF_PASSWORD: password, CONF_REGION: region}
+                    )
 
         schema = vol.Schema(
             {
@@ -121,6 +133,13 @@ class AfireOptionsFlow(config_entries.OptionsFlow):
                     CONF_PASSWORD,
                     default=self.entry.options.get(CONF_PASSWORD, self.entry.data.get(CONF_PASSWORD)),
                 ): cv.string,
+                vol.Required(CONF_REGION, default=self.entry.options.get(CONF_REGION, self.entry.data.get(CONF_REGION, REGION_DEFAULT))): SelectSelector(
+                    SelectSelectorConfig(
+                        options=[REGION_DEFAULT, REGION_EU],
+                        mode=SelectSelectorMode.DROPDOWN,
+                        translation_key="region"
+                    )
+                ),
             }
         )
         return self.async_show_form(step_id="reconfigure", data_schema=schema, errors=errors)

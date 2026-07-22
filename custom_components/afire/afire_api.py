@@ -12,14 +12,14 @@ _LOGGER = logging.getLogger(__name__)
 class AfireAPI:
     """Facade that merges AWPR and AWPR2 devices for one account."""
 
-    def __init__(self, username: str, password: str) -> None:
+    def __init__(self, username: str, password: str, region: str) -> None:
         self.username = username
         self.password = password
         self.devices: list[dict[str, Any]] = []
         self._devices_by_id: dict[str, dict[str, Any]] = {}
         # One AFIRE account can expose fireplaces from both API families.
         self._backends = {
-            "awpr": AwprBackend(username, password),
+            "awpr": AwprBackend(username, password, region),
             "awpr2": Awpr2Backend(username, password),
         }
         self._enabled_backends: set[str] = set()

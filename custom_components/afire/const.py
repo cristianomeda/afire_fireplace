@@ -2,12 +2,19 @@ DOMAIN = "afire"
 
 CONF_USERNAME = "username"
 CONF_PASSWORD = "password"
+CONF_REGION = "region"
 
 SERIES_AWPR = "AWPR"
 SERIES_AWPR2 = "AWPR2"
 
 MODEL_PRESTIGE = "PRESTIGE"
 MODEL_ADVANCED = "ADVANCED"
+
+REGION_EU = "eu"
+REGION_DEFAULT = "default"
+
+API_BASE_EU = "https://euapi.gizwits.com/app"
+API_BASE_DEFAULT = "https://api.gizwits.com/app"
 
 # AFIRE mobile app id for the legacy AWPR mobile app.
 DEFAULT_APPID = "8dd16cd21b2d44a895c55897856496d5"
