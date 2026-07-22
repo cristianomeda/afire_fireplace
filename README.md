@@ -87,7 +87,7 @@ config/
 
 1. Go to `Settings -> Devices & Services -> Add Integration`.
 2. Search for `AFIRE`.
-3. Enter your AFIRE account credentials.
+3. Enter your AFIRE account credentials and region.
 4. Home Assistant will discover all supported fireplaces linked to that account.
 5. Assign each fireplace to the desired area.
 
